@@ -84,12 +84,12 @@
 // driver
 #include "clock.h"
 #include "display.h"
-#include "cma_as.h"
+//#include "cma_as.h"
 #include "bmp_as.h"
 #include "as.h"
-#include "cma_ps.h"
-#include "bmp_ps.h"
-#include "ps.h"
+//#include "cma_ps.h"
+//#include "bmp_ps.h"
+//#include "ps.h"
 #include "radio.h"
 #include "buzzer.h"
 #include "ports.h"
@@ -101,17 +101,17 @@
 #include "menu.h"
 #include "date.h"
 #include "alarm.h"
-#include "stopwatch.h"
+//#include "stopwatch.h"
 #include "battery.h"
 #include "temperature.h"
-#include "altitude.h"
+//#include "altitude.h"
 #include "battery.h"
 #include "acceleration.h"
-#include "bluerobin.h"
+//#include "bluerobin.h"
 #include "rfsimpliciti.h"
 #include "simpliciti.h"
-#include "rfbsl.h"
-#include "test.h"
+//#include "rfbsl.h"
+//#include "test.h"
 
 // *************************************************************************************************
 // Prototypes section
@@ -147,7 +147,7 @@ u8 bmp_used;
 /* Global flag used to adjust the difference in RF settings
  * (Base frequency and output power)
  * between Chronos with Black PCB and Chronos with White PCB */
-u8 chronos_black;
+//u8 chronos_black;
 
 // Global radio frequency offset taken from calibration memory
 // Compensates crystal deviation from 26MHz nominal value
@@ -177,7 +177,7 @@ int main(void)
     init_global_variables();
 
     // Branch to welcome screen
-    test_mode();
+    //test_mode();
 
     // Main control loop: wait in low power mode until some event needs to be processed
     while (1)
@@ -316,9 +316,9 @@ void init_application(void)
 
     // ---------------------------------------------------------------------
     // Init pressure sensor
-    bmp_ps_init();
+    //bmp_ps_init();
     // Bosch sensor not found?
-    if (!ps_ok)
+    /*if (!ps_ok)
     {
         bmp_used = 0;
         cma_ps_init();
@@ -330,7 +330,7 @@ void init_application(void)
     	bmp_used = 1;
     	// Chronos with White PCB
     	chronos_black = 0;
-    }
+    }*/
 }
 
 // *************************************************************************************************
@@ -397,16 +397,16 @@ void init_global_variables(void)
     reset_buzzer();
 
     // Reset stopwatch
-    reset_stopwatch();
+    //reset_stopwatch();
 
     // Reset altitude measurement
-    reset_altitude_measurement();
+    //reset_altitude_measurement();
 
     // Reset acceleration measurement
     reset_acceleration();
 
     // Reset BlueRobin stack
-    reset_bluerobin();
+    //reset_bluerobin();
 
     // Reset SimpliciTI stack
     reset_rf();
@@ -492,7 +492,7 @@ void wakeup_event(void)
         else if (button.flag.num)
         {
             // Clear rfBSL confirmation flag
-            rfBSL_button_confirmation = 0;
+            //rfBSL_button_confirmation = 0;
 
             // Clean up display before activating next menu item
             fptr_lcd_function_line2(LINE2, DISPLAY_LINE_CLEAR);
@@ -574,8 +574,8 @@ void process_requests(void)
         temperature_measurement(FILTER_ON);
 
     // Do pressure measurement
-    if (request.flag.altitude_measurement)
-        do_altitude_measurement(FILTER_ON);
+    /*if (request.flag.altitude_measurement)
+        do_altitude_measurement(FILTER_ON);*/
 
     // Do acceleration measurement
     if (request.flag.acceleration_measurement)
@@ -664,7 +664,7 @@ void display_update(void)
     }
     // ---------------------------------------------------------------------
     // Restore blinking icons (blinking memory is cleared when calling set_value)
-    if (display.flag.full_update)
+    /*if (display.flag.full_update)
     {
         if (is_bluerobin() == BLUEROBIN_CONNECTED)
         {
@@ -673,7 +673,7 @@ void display_update(void)
             display_symbol(LCD_ICON_BEEPER2, SEG_ON_BLINK_OFF);
             display_symbol(LCD_ICON_BEEPER3, SEG_ON_BLINK_OFF);
         }
-    }
+    }*/
     // Clear display flag
     display.all_flags = 0;
 }
@@ -739,7 +739,7 @@ void read_calibration_values(void)
         simpliciti_ed_address[1] = 0x56;
         simpliciti_ed_address[2] = 0x34;
         simpliciti_ed_address[3] = 0x12;
-        sAlt.altitude_offset = 0;
+       // sAlt.altitude_offset = 0;
     } else
     {
         // Assign calibration data to global variables
@@ -756,13 +756,13 @@ void read_calibration_values(void)
         simpliciti_ed_address[2] = cal_data[8];
         simpliciti_ed_address[3] = cal_data[9];
         // S/W version byte set during calibration?
-        if (cal_data[12] != 0xFF)
+        /*if (cal_data[12] != 0xFF)
         {
             sAlt.altitude_offset = (s16) ((cal_data[10] << 8) + cal_data[11]);
         } else
         {
             sAlt.altitude_offset = 0;
-        }
+        }*/
     }
 }
 

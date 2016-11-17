@@ -48,7 +48,7 @@
 
 // logic
 #include "rfbsl.h"
-#include "bluerobin.h"
+//#include "bluerobin.h"
 #include "rfsimpliciti.h"
 
 // *************************************************************************************************
@@ -68,8 +68,8 @@ void sx_rfbsl(u8 line)
         return;
 
     // Exit if BlueRobin stack is active
-    if (is_bluerobin())
-        return;
+    /*if (is_bluerobin())
+        return;*/
 
     // Exit if SimpliciTI stack is active
     if (is_rf())

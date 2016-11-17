@@ -51,7 +51,7 @@
 #include "date.h"
 #include "clock.h"
 #include "user.h"
-#include "stopwatch.h"
+//#include "stopwatch.h"
 
 // *************************************************************************************************
 // Prototypes section
@@ -105,7 +105,7 @@ void set_value(s32 * value, u8 digits, u8 blanks, s32 limitLow, s32 limitHigh, u
     u8 update;
     s16 stepValue = 1;
     u8 doRound = 0;
-    u8 stopwatch_state;
+    //u8 stopwatch_state;
     u32 val;
 
     // Clear button flags
@@ -118,8 +118,8 @@ void set_value(s32 * value, u8 digits, u8 blanks, s32 limitLow, s32 limitHigh, u
     stop_buzzer();
 
     // Disable stopwatch display update while function is active
-    stopwatch_state = sStopwatch.state;
-    sStopwatch.state = STOPWATCH_HIDE;
+    /*stopwatch_state = sStopwatch.state;
+    sStopwatch.state = STOPWATCH_HIDE;*/
 
     // Init step size and repeat counter
     sButton.repeats = 0;
@@ -286,6 +286,6 @@ void set_value(s32 * value, u8 digits, u8 blanks, s32 limitLow, s32 limitHigh, u
     button_repeat_off();
 
     // Enable stopwatch display updates again
-    sStopwatch.state = stopwatch_state;
+    //sStopwatch.state = stopwatch_state;
 }
 

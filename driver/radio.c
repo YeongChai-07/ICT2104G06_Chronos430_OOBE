@@ -44,7 +44,7 @@
 
 // logic
 #include "rfsimpliciti.h"
-#include "bluerobin.h"
+//#include "bluerobin.h"
 
 // *************************************************************************************************
 // Extern section
@@ -168,7 +168,7 @@ __interrupt void radio_ISR(void)
     {
         MRFI_RadioIsr();
     }
-    else                                  // BlueRobin packet end interrupt service routine
+    /*else                                  // BlueRobin packet end interrupt service routine
     {
         if (rf1aivec == RF1AIV_RFIFG9)
         {
@@ -182,6 +182,6 @@ __interrupt void radio_ISR(void)
         {
             asm ("	nop"); // break here
         }
-    }
+    }*/
 }
 

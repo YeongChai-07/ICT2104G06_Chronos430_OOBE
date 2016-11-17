@@ -256,7 +256,7 @@ const uint8_t mrfiRadioCfg[][2] =
  *  The static assert below ensures that there is no mismatch.
  */
 // [BM] Changed channel assignment to comply with local regulations
-#ifdef ISM_EU
+/*#ifdef ISM_EU
 static const uint8_t mrfiLogicalChanTable[] =
 {
     0,
@@ -286,7 +286,20 @@ static const uint8_t mrfiLogicalChanTable[] =
 #            error "Wrong ISM band specified (valid are ISM_LF, ISM_EU and ISM_US)"
 #        endif
 #    endif
-#endif
+#endif*/
+
+#        ifdef ISM_LF
+static const uint8_t mrfiLogicalChanTable[] =
+{
+    0,
+    50,
+    80,
+    110
+};
+#        else
+#            error "Wrong ISM band specified (valid are ISM_LF, ISM_EU and ISM_US)"
+#        endif
+
 //static const uint8_t mrfiLogicalChanTable[] =
 //{
 //  SMARTRF_SETTING_CHANNR,
@@ -319,7 +332,7 @@ static const uint8_t mrfiRFPowerTable[] =
 {
     0x0F,
     0x27,
-#ifdef ISM_EU
+/*#ifdef ISM_EU
     0xA6
 #else
 #    ifdef ISM_US
@@ -331,11 +344,18 @@ static const uint8_t mrfiRFPowerTable[] =
 #            error "Wrong ISM band specified (valid are ISM_LF, ISM_EU and ISM_US)"
 #        endif
 #    endif
-#endif
+#endif*/
+
+#        ifdef ISM_LF
+    0x61
+#        else
+#            error "Wrong ISM band specified (valid are ISM_LF, ISM_EU and ISM_US)"
+#        endif
+
 };
 
 /* [BM] RF Power setting table for the Chronos with Black PCB  */
-static const uint8_t mrfiRFPowerTable_B[] =
+/*static const uint8_t mrfiRFPowerTable_B[] =
 {
     // [BM] Changed default output power to comply with dongle settings
     0x0F,
@@ -355,7 +375,7 @@ static const uint8_t mrfiRFPowerTable_B[] =
 #        endif
 #    endif
 #endif
-};
+};*/
 
 /* verify number of table entries matches the corresponding #define */
 BSP_STATIC_ASSERT(__mrfi_NUM_POWER_SETTINGS__ ==
@@ -405,7 +425,7 @@ extern unsigned char rf_frequoffset;
 /* [BM] Global flag used to adjust the difference in RF settings
  * (Base frequency and output power)
  * between Chronos with Black PCB and Chronos with White PCB */
-extern unsigned char chronos_black;
+//extern unsigned char chronos_black;
 
 /**************************************************************************************************
  * @fn          MRFI_Init
@@ -505,7 +525,7 @@ void MRFI_Init(void)
             MRFI_RADIO_REG_WRITE(mrfiRadioCfg[i][0], mrfiRadioCfg[i][1]);
         }
 
-#ifdef ISM_US
+/*#ifdef ISM_US
        if (chronos_black)
        {  // [BM] Chronos with Black PCB
     	   MRFI_RADIO_REG_WRITE(FREQ2, SMARTRF_SETTING_FREQ2_B);
@@ -518,7 +538,7 @@ void MRFI_Init(void)
     	   MRFI_RADIO_REG_WRITE(FREQ1, SMARTRF_SETTING_FREQ1_W);
     	   MRFI_RADIO_REG_WRITE(FREQ0, SMARTRF_SETTING_FREQ0_W);
        }
-#endif   // ISM_US
+#endif   // ISM_US*/
     }
 
     /* Confirm that the values were written correctly.
@@ -530,7 +550,7 @@ void MRFI_Init(void)
         {
             MRFI_ASSERT(mrfiRadioCfg[i][1] == MRFI_RADIO_REG_READ(mrfiRadioCfg[i][0]));
         }
-#ifdef ISM_US
+/*#ifdef ISM_US
        if (chronos_black)
        {  // [BM] Chronos with Black PCB
     	   MRFI_ASSERT(SMARTRF_SETTING_FREQ2_B == MRFI_RADIO_REG_READ(FREQ2));
@@ -543,7 +563,7 @@ void MRFI_Init(void)
     	   MRFI_ASSERT(SMARTRF_SETTING_FREQ1_W == MRFI_RADIO_REG_READ(FREQ1));
     	   MRFI_ASSERT(SMARTRF_SETTING_FREQ0_W == MRFI_RADIO_REG_READ(FREQ0));
        }
-#endif   // ISM_US
+#endif   // ISM_US*/
     }
 
     // [BM] Apply global frequency offset to FSCTRL0
@@ -1665,14 +1685,16 @@ void MRFI_SetRFPwr(uint8_t level)
     /* Power level is not valid? */
     MRFI_ASSERT(level < MRFI_NUM_POWER_SETTINGS);
     // [BM] PTable with respect to Chronos Version
-    if (chronos_black)
+    /*if (chronos_black)
     {
     	MRFI_RADIO_REG_WRITE(PATABLE, mrfiRFPowerTable_B[level]);
     }
     else
     {
     	MRFI_RADIO_REG_WRITE(PATABLE, mrfiRFPowerTable[level]);
-    }
+    }*/
+
+    MRFI_RADIO_REG_WRITE(PATABLE, mrfiRFPowerTable[level]);
 
     return;
 }

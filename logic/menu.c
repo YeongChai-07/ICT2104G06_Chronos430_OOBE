@@ -50,14 +50,14 @@
 #include "clock.h"
 #include "date.h"
 #include "alarm.h"
-#include "stopwatch.h"
+//#include "stopwatch.h"
 #include "temperature.h"
-#include "altitude.h"
+//#include "altitude.h"
 #include "battery.h"
-#include "bluerobin.h"
+//#include "bluerobin.h"
 #include "rfsimpliciti.h"
 #include "acceleration.h"
-#include "rfbsl.h"
+//#include "rfbsl.h"
 
 // *************************************************************************************************
 // Defines section
@@ -80,10 +80,10 @@ u8 update_time(void)
     return (display.flag.update_time);
 }
 
-u8 update_stopwatch(void)
+/*u8 update_stopwatch(void)
 {
     return (display.flag.update_stopwatch);
-}
+}*/
 
 u8 update_date(void)
 {
@@ -142,35 +142,37 @@ const struct menu menu_L1_Temperature = {
     FUNCTION(mx_temperature),         // sub menu function
     FUNCTION(display_temperature),    // display function
     FUNCTION(update_temperature),     // new display data
-    &menu_L1_Altitude,
+	&menu_L1_Acceleration,
+    //&menu_L1_Altitude,
 };
 
 // Line1 - Altitude
-const struct menu menu_L1_Altitude = {
+/*const struct menu menu_L1_Altitude = {
     FUNCTION(sx_altitude),            // direct function
     FUNCTION(mx_altitude),            // sub menu function
     FUNCTION(display_altitude),       // display function
     FUNCTION(update_time),            // new display data
-    &menu_L1_Heartrate,
-};
+	&menu_L1_Acceleration,
+    //&menu_L1_Heartrate,
+};*/
 
 // Line1 - Heart Rate
-const struct menu menu_L1_Heartrate = {
+/*const struct menu menu_L1_Heartrate = {
     FUNCTION(sx_bluerobin),           // direct function
     FUNCTION(mx_bluerobin),           // sub menu function
     FUNCTION(display_heartrate),      // display function
     FUNCTION(update_time),            // new display data
     &menu_L1_Speed,
-};
+};*/
 
 // Line1 - Speed
-const struct menu menu_L1_Speed = {
+/*const struct menu menu_L1_Speed = {
     FUNCTION(dummy),                  // direct function
     FUNCTION(dummy),                  // sub menu function
     FUNCTION(display_speed),          // display function
     FUNCTION(update_time),            // new display data
     &menu_L1_Acceleration,
-};
+};*/
 
 // Line1 - Acceleration
 const struct menu menu_L1_Acceleration = {
@@ -187,17 +189,18 @@ const struct menu menu_L2_Date = {
     FUNCTION(mx_date),                // sub menu function
     FUNCTION(display_date),           // display function
     FUNCTION(update_date),            // new display data
-    &menu_L2_Stopwatch,
+	&menu_L2_Battery,
+    //&menu_L2_Stopwatch,
 };
 
 // Line2 - Stopwatch
-const struct menu menu_L2_Stopwatch = {
+/*const struct menu menu_L2_Stopwatch = {
     FUNCTION(sx_stopwatch),           // direct function
     FUNCTION(mx_stopwatch),           // sub menu function
     FUNCTION(display_stopwatch),      // display function
     FUNCTION(update_stopwatch),       // new display data
     &menu_L2_Battery,
-};
+};*/
 
 // Line2 - Battery
 const struct menu menu_L2_Battery = {
@@ -214,17 +217,18 @@ const struct menu menu_L2_Rf = {
     FUNCTION(dummy),                  // sub menu function
     FUNCTION(display_rf),             // display function
     FUNCTION(update_time),            // new display data
-    &menu_L2_Ppt,
+	&menu_L2_Sync,
+    //&menu_L2_Ppt,
 };
 
 // Line2 - PPT (button events via SimpliciTI)
-const struct menu menu_L2_Ppt = {
+/*const struct menu menu_L2_Ppt = {
     FUNCTION(sx_ppt),                 // direct function
     FUNCTION(dummy),                  // sub menu function
     FUNCTION(display_ppt),            // display function
     FUNCTION(update_time),            // new display data
     &menu_L2_Sync,
-};
+};*/
 
 // Line2 - SXNC (synchronization/data download via SimpliciTI)
 const struct menu menu_L2_Sync = {
@@ -232,23 +236,24 @@ const struct menu menu_L2_Sync = {
     FUNCTION(dummy),                  // sub menu function
     FUNCTION(display_sync),           // display function
     FUNCTION(update_time),            // new display data
-    &menu_L2_CalDist,
+	&menu_L2_Date,
+    //&menu_L2_CalDist,
 };
 
 // Line2 - Calories/Distance
-const struct menu menu_L2_CalDist = {
+/*const struct menu menu_L2_CalDist = {
     FUNCTION(sx_caldist),             // direct function
     FUNCTION(mx_caldist),             // sub menu function
     FUNCTION(display_caldist),        // display function
     FUNCTION(update_time),            // new display data
     &menu_L2_RFBSL,
-};
+};*/
 
 // Line2 - RFBSL
-const struct menu menu_L2_RFBSL = {
+/*const struct menu menu_L2_RFBSL = {
     FUNCTION(sx_rfbsl),               // direct function
     FUNCTION(dummy),                  // sub menu function
     FUNCTION(display_rfbsl),          // display function
     FUNCTION(update_time),            // new display data
     &menu_L2_Date,
-};
+};*/

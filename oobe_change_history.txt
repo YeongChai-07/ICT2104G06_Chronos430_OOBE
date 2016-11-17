@@ -1,0 +1,22 @@
++++++++++++++++++ Change History (from the OOBE source code) +++++++++++++++++
+
+Build 10 NOV 2016
+=================
+
+REMOVED components from the S/W are the following:
+1) BlueRobin for external HeartRate monitor/Speed tracker/Calories and Distance tracker
+2) Wireless Firmware Update (also known as rfBSL)
+3) Altimeter
+4) PPT Syncing (for using the watch to control going to previous/next PowerPoint slides)
+5) Stopwatch (I believe we won't be using it right?)
+6) Components that is using the Black PCB
+	- Altimeter / Pressure sensor (cma_ps)
+	- Accelerometer sensor (cma_as).
+	
+7) RF (Radio Frequency) configuration of the Black PCB model of our RF USB receiver (CC1111)
+	- the US/EU RF signal frequency configurations.
+	- global variables used to check whether the user is using the 
+	  Black PCB version of the RF USB receiver.
+	  
+The codes for the above removed components will still remained in our CCS project 
+(just in case u wish to reference it).

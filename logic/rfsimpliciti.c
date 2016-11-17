@@ -44,9 +44,9 @@
 // driver
 #include "display.h"
 #include "bmp_as.h"
-#include "cma_as.h"
+//#include "cma_as.h"
 #include "as.h"
-#include "ps.h"
+//#include "ps.h"
 #include "ports.h"
 #include "timer.h"
 #include "radio.h"
@@ -54,13 +54,13 @@
 // logic
 #include "acceleration.h"
 #include "rfsimpliciti.h"
-#include "bluerobin.h"
+//#include "bluerobin.h"
 #include "simpliciti.h"
 #include "clock.h"
 #include "date.h"
 #include "alarm.h"
 #include "temperature.h"
-#include "altitude.h"
+//#include "altitude.h"
 
 // *************************************************************************************************
 // Prototypes section
@@ -139,8 +139,8 @@ void sx_rf(u8 line)
         return;
 
     // Exit if BlueRobin stack is active
-    if (is_bluerobin())
-        return;
+    /*if (is_bluerobin())
+        return;*/
 
     // Turn off the backlight
     P2OUT &= ~BUTTON_BACKLIGHT_PIN;
@@ -161,15 +161,15 @@ void sx_rf(u8 line)
 // @param       u8 line         LINE2
 // @return      none
 // *************************************************************************************************
-void sx_ppt(u8 line)
+/*void sx_ppt(u8 line)
 {
     // Exit if battery voltage is too low for radio operation
     if (sys.flag.low_battery)
         return;
 
     // Exit if BlueRobin stack is active
-    if (is_bluerobin())
-        return;
+    //if (is_bluerobin())
+        //return;
 
     // Turn off the backlight
     P2OUT &= ~BUTTON_BACKLIGHT_PIN;
@@ -181,7 +181,7 @@ void sx_ppt(u8 line)
     start_simpliciti_tx_only(SIMPLICITI_BUTTONS);
 
     BUTTONS_IE |= BUTTON_BACKLIGHT_PIN;
-}
+}*/
 
 // *************************************************************************************************
 // @fn          sx_sync
@@ -196,8 +196,8 @@ void sx_sync(u8 line)
         return;
 
     // Exit if BlueRobin stack is active
-    if (is_bluerobin())
-        return;
+    //if (is_bluerobin())
+        //return;
 
     // Turn off the backlight
     P2OUT &= ~BUTTON_BACKLIGHT_PIN;
@@ -265,10 +265,10 @@ void start_simpliciti_tx_only(simpliciti_mode_t mode)
         	{
                 bmp_as_start();
         	}
-        	else
+        	/*else
         	{
                 cma_as_start();
-        	}
+        	}*/
         }
 
         // Enter TX only routine. This will transfer button events and/or acceleration data to
@@ -284,10 +284,10 @@ void start_simpliciti_tx_only(simpliciti_mode_t mode)
 	{
         bmp_as_stop();
 	}
-	else
+	/*else
 	{
         cma_as_stop();
-	}
+	}*/
 
     // Powerdown radio
     close_radio();
@@ -332,13 +332,13 @@ void display_rf(u8 line, u8 update)
 //                              u8 update               DISPLAY_LINE_UPDATE_FULL
 // @return      none
 // *************************************************************************************************
-void display_ppt(u8 line, u8 update)
+/*void display_ppt(u8 line, u8 update)
 {
     if (update == DISPLAY_LINE_UPDATE_FULL)
     {
         display_chars(LCD_SEG_L2_5_0, (u8 *) "   PPT", SEG_ON);
     }
-}
+}*/
 
 // *************************************************************************************************
 // @fn          display_sync
@@ -395,10 +395,10 @@ void simpliciti_get_ed_data_callback(void)
         	{
                 bmp_as_get_data(sAccel.xyz);
         	}
-        	else
+        	/*else
         	{
                 cma_as_get_data(sAccel.xyz);
-        	}
+        	}*/
 
             // Transmit only every 3rd data set (= 33 packets / second)
             if (packet_counter++ > 1)
@@ -477,14 +477,14 @@ void start_simpliciti_sync(void)
 	{
         bmp_as_stop();
 	}
-	else
+	/*else
 	{
         cma_as_stop();
-	}
+	}*/
 
     // Get updated altitude
-    start_altitude_measurement();
-    stop_altitude_measurement();
+    /*start_altitude_measurement();
+    stop_altitude_measurement();*/
 
     // Get updated temperature
     temperature_measurement(FILTER_OFF);
@@ -577,8 +577,8 @@ void simpliciti_sync_decode_ap_cmd_callback(void)
             sTemp.offset = offset;
             sTemp.degrees = t1;
             // Set altitude
-            sAlt.altitude = (s16) ((simpliciti_data[12] << 8) + simpliciti_data[13]);
-            update_pressure_table(sAlt.altitude, sAlt.pressure, sAlt.temperature);
+            /*sAlt.altitude = (s16) ((simpliciti_data[12] << 8) + simpliciti_data[13]);
+            update_pressure_table(sAlt.altitude, sAlt.pressure, sAlt.temperature);*/
 
             display_chars(LCD_SEG_L2_5_0, (u8 *) "  DONE", SEG_ON);
             sRFsmpl.display_sync_done = 1;
@@ -645,8 +645,8 @@ void simpliciti_sync_get_data_callback(unsigned int index)
             simpliciti_data[9] = sAlarm.minute;
             simpliciti_data[10] = sTemp.degrees >> 8;
             simpliciti_data[11] = sTemp.degrees & 0xFF;
-            simpliciti_data[12] = sAlt.altitude >> 8;
-            simpliciti_data[13] = sAlt.altitude & 0xFF;
+            //simpliciti_data[12] = sAlt.altitude >> 8;
+            //simpliciti_data[13] = sAlt.altitude & 0xFF;
             break;
 
         case SYNC_ED_TYPE_MEMORY:

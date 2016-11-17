@@ -46,24 +46,24 @@
 #include "ports.h"
 #include "buzzer.h"
 #include "bmp_as.h"
-#include "cma_as.h"
+//#include "cma_as.h"
 #include "as.h"
-#include "bmp_ps.h"
-#include "cma_ps.h"
-#include "ps.h"
+//#include "bmp_ps.h"
+//#include "cma_ps.h"
+//#include "ps.h"
 #include "display.h"
 
 // logic
 #include "clock.h"
 #include "battery.h"
-#include "stopwatch.h"
+//#include "stopwatch.h"
 #include "alarm.h"
-#include "altitude.h"
+//#include "altitude.h"
 #include "display.h"
 #include "rfsimpliciti.h"
 #include "simpliciti.h"
 #include "acceleration.h"
-#include "bluerobin.h"
+//#include "bluerobin.h"
 #include "temperature.h"
 
 // *************************************************************************************************
@@ -224,8 +224,8 @@ void Timer0_A4_Delay(u16 ticks)
         WDTCTL = WDTPW + WDTIS__512K + WDTSSEL__ACLK + WDTCNTCL;
 #endif
         // Redraw stopwatch display
-        if (is_stopwatch())
-            display_stopwatch(LINE2, DISPLAY_LINE_UPDATE_PARTIAL);
+        /*if (is_stopwatch())
+            display_stopwatch(LINE2, DISPLAY_LINE_UPDATE_PARTIAL);*/
 
         // Check stop condition
         // disable interrupt to prevent flag's change caused by interrupt methods
@@ -274,7 +274,8 @@ __interrupt void TIMER0_A0_ISR(void)
     display.flag.update_time = 1;
 
     // While SimpliciTI stack operates or BlueRobin searches, freeze system state
-    if (is_rf() || is_bluerobin_searching())
+    //if (is_rf() || is_bluerobin_searching())
+    if (is_rf())
     {
         // SimpliciTI automatic timeout
         if (sRFsmpl.timeout == 0)
@@ -337,7 +338,7 @@ __interrupt void TIMER0_A0_ISR(void)
         request.flag.temperature_measurement = 1;
 
     // Do a pressure measurement each second while menu item is active
-    if (is_altitude_measurement())
+    /*if (is_altitude_measurement())
     {
         // Countdown altitude measurement timeout while menu item is active
         sAlt.timeout--;
@@ -363,7 +364,7 @@ __interrupt void TIMER0_A0_ISR(void)
         // In case we missed the IRQ due to debouncing, get data now
         if ((PS_INT_IN & PS_INT_PIN) == PS_INT_PIN)
             request.flag.altitude_measurement = 1;
-    }
+    }*/
 
     // Count down timeout
     if (is_acceleration_measurement())
@@ -378,10 +379,10 @@ __interrupt void TIMER0_A0_ISR(void)
         	{
             	bmp_as_stop();
         	}
-        	else
+        	/*else
         	{
                 cma_as_stop();
-        	}
+        	}*/
             // Show ----
             display_chars(LCD_SEG_L1_3_0, (u8 *) "----", SEG_ON);
             // Clear up/down arrow
@@ -396,8 +397,8 @@ __interrupt void TIMER0_A0_ISR(void)
     }
 
     // If BlueRobin transmitter is connected, get data from API
-    if (is_bluerobin())
-        get_bluerobin_data();
+    /*if (is_bluerobin())
+        get_bluerobin_data();*/
 
     // If battery is low, decrement display counter
     if (sys.flag.low_battery)
@@ -543,7 +544,7 @@ __interrupt void TIMER0_A1_5_ISR(void)
     {
         // Timer0_A1    BlueRobin timer
         case 0x02:             // Timer0_A1 handler
-            BRRX_TimerTask_v();
+            //BRRX_TimerTask_v();
             break;
 
         // Timer0_A2    1/1 or 1/100 sec Stopwatch
@@ -553,11 +554,11 @@ __interrupt void TIMER0_A1_5_ISR(void)
             // Reset IRQ flag
             TA0CCTL2 &= ~CCIFG;
             // Load CCR register with next capture point
-            update_stopwatch_timer();
+            //update_stopwatch_timer();
             // Enable timer interrupt
             TA0CCTL2 |= CCIE;
             // Increase stopwatch counter
-            stopwatch_tick();
+            //stopwatch_tick();
             break;
 
         // Timer0_A3    Configurable periodic IRQ (used by button_repeat and buzzer)

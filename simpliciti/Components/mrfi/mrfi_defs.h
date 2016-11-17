@@ -62,39 +62,39 @@
  */
 
 /* ------ Radio Family 1 ------ */
-#if (defined MRFI_CC1100) /* Sub 1 GHz RF Transceiver */ || \
-    (defined MRFI_CC1101) /* Sub 1 GHz RF Transceiver */ || \
-    (defined MRFI_CC1100E_470) /* Sub 1 GHz RF Transceiver (CC1100E Asia) */ || \
-    (defined MRFI_CC1100E_950) /* Sub 1 GHz RF Transceiver (CC1100E Asia) */ || \
-    (defined MRFI_CC2500)   /* 2.4 GHz RF Transceiver */
-#    define MRFI_RADIO_FAMILY1
+//#if (defined MRFI_CC1100) /* Sub 1 GHz RF Transceiver */ || \
+//    (defined MRFI_CC1101) /* Sub 1 GHz RF Transceiver */ || \
+//   (defined MRFI_CC1100E_470) /* Sub 1 GHz RF Transceiver (CC1100E Asia) */ || \
+//    (defined MRFI_CC1100E_950) /* Sub 1 GHz RF Transceiver (CC1100E Asia) */ || \
+//    (defined MRFI_CC2500)   /* 2.4 GHz RF Transceiver */
+//#    define MRFI_RADIO_FAMILY1
 
 /* ------ Radio Family 2 ------ */
-#elif (defined MRFI_CC1110) /* Sub 1 GHz SoC */                     || \
-    (defined MRFI_CC1111) /* Sub 1 GHz SoC with USB controller */ || \
-    (defined MRFI_CC2510) /* 2.4 GHz SoC */                       || \
-    (defined MRFI_CC2511)   /* 2.4 GHz SoC with USB controller */
-#    define MRFI_RADIO_FAMILY2
+//#elif (defined MRFI_CC1110) /* Sub 1 GHz SoC */                     || \
+//    (defined MRFI_CC1111) /* Sub 1 GHz SoC with USB controller */ || \
+//    (defined MRFI_CC2510) /* 2.4 GHz SoC */                       || \
+//    (defined MRFI_CC2511)   /* 2.4 GHz SoC with USB controller */
+//#    define MRFI_RADIO_FAMILY2
 
 /* ------ Radio Family 3 ------ */
-#elif (defined MRFI_CC2420) /* 2.4 GHz IEEE 802.15.4 RF Transceiver */ || \
-    (defined MRFI_CC2520)   /* 2.4 GHz IEEE 802.15.4 RF Transceiver */
+//#elif (defined MRFI_CC2420) /* 2.4 GHz IEEE 802.15.4 RF Transceiver */ || \
+//    (defined MRFI_CC2520)   /* 2.4 GHz IEEE 802.15.4 RF Transceiver */
 
-#    define MRFI_RADIO_FAMILY3
+//#    define MRFI_RADIO_FAMILY3
 
 /* ------ Radio Family 4 ------ */
-#elif (defined MRFI_CC2430) /* 2.4 GHz IEEE 802.15.4 SoC */ || \
-    (defined MRFI_CC2431)   /* 2.4 GHz IEEE 802.15.4 SoC */
-#    define MRFI_RADIO_FAMILY4
+//#elif (defined MRFI_CC2430) /* 2.4 GHz IEEE 802.15.4 SoC */ || \
+//    (defined MRFI_CC2431)   /* 2.4 GHz IEEE 802.15.4 SoC */
+//#    define MRFI_RADIO_FAMILY4
 
 /* ------ Radio Family 5 ------ */
-#elif (defined MRFI_CC430)  /* Sub 1 GHz MSP SoC */
+#if (defined MRFI_CC430)  /* Sub 1 GHz MSP SoC */
 #    define MRFI_RADIO_FAMILY5
 
 /* ------ Radio Family 6 ------ */
-#elif (defined MRFI_CC2530) /* 2.4 GHz IEEE 802.15.4 SoC */
+//#elif (defined MRFI_CC2530) /* 2.4 GHz IEEE 802.15.4 SoC */
 
-#    define MRFI_RADIO_FAMILY6
+//#    define MRFI_RADIO_FAMILY6
 
 #else
 #    error "ERROR: Unknown or missing radio selection."
@@ -105,7 +105,8 @@
  *                                Radio Family 1 / Radio Family 2 / Radio Family 5
  * ------------------------------------------------------------------------------------------------
  */
-#if (defined MRFI_RADIO_FAMILY1) || (defined MRFI_RADIO_FAMILY2) || (defined MRFI_RADIO_FAMILY5)
+//#if (defined MRFI_RADIO_FAMILY1) || (defined MRFI_RADIO_FAMILY2) || (defined MRFI_RADIO_FAMILY5)
+#if (defined MRFI_RADIO_FAMILY5)
 
 #    define __mrfi_LENGTH_FIELD_SIZE__      1
 #    define __mrfi_ADDR_SIZE__              4
@@ -142,7 +143,7 @@
  *                                Radio Family 3 / Radio Family 4 / Radio Family 6
  * ------------------------------------------------------------------------------------------------
  */
-#if (defined MRFI_RADIO_FAMILY3) || (defined MRFI_RADIO_FAMILY4) || (defined MRFI_RADIO_FAMILY6)
+/*#if (defined MRFI_RADIO_FAMILY3) || (defined MRFI_RADIO_FAMILY4) || (defined MRFI_RADIO_FAMILY6)
 
 #    define __mrfi_LENGTH_FIELD_SIZE__      1
 #    define __mrfi_FCF_SIZE__               2
@@ -179,7 +180,7 @@
 #    define __mrfi_SET_PAYLOAD_LEN__(p, x)   st( \
         (p)->frame[__mrfi_LENGTH_FIELD_OFS__] = x + __mrfi_HEADER_SIZE__; )
 
-#endif
+#endif*/
 
 
 /* ------------------------------------------------------------------------------------------------
@@ -218,12 +219,13 @@
 #endif
 
 /* verify that a radio family is selected */
-#if (!defined MRFI_RADIO_FAMILY1) && \
+//#if (!defined MRFI_RADIO_FAMILY1) && \
     (!defined MRFI_RADIO_FAMILY2) && \
     (!defined MRFI_RADIO_FAMILY3) && \
     (!defined MRFI_RADIO_FAMILY4) && \
     (!defined MRFI_RADIO_FAMILY5) && \
     (!defined MRFI_RADIO_FAMILY6)
+#if (!defined MRFI_RADIO_FAMILY5)
 #    error "ERROR: A radio family has not been assigned."
 #endif
 

@@ -55,7 +55,7 @@
 #include "acceleration.h"
 #include "altitude.h"
 #include "temperature.h"
-#include "bluerobin.h"
+//#include "bluerobin.h"
 #include "test.h"
 
 // *************************************************************************************************
@@ -199,12 +199,12 @@ void test_mode(void)
                         	}
                             break;
                         case 4: // BlueRobin test
-                            button.flag.up = 1;
+                            /*button.flag.up = 1;
                             sx_bluerobin(LINE1);
                             Timer0_A4_Delay(CONV_MS_TO_TICKS(100));
                             get_bluerobin_data();
                             display_heartrate(LINE1, DISPLAY_LINE_UPDATE_FULL);
-                            stop_bluerobin();
+                            stop_bluerobin();*/
                             break;
                     }
 

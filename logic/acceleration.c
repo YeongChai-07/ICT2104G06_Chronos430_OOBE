@@ -44,7 +44,7 @@
 // driver
 #include "display.h"
 #include "bmp_as.h"
-#include "cma_as.h"
+//#include "cma_as.h"
 #include "as.h"
 
 // logic
@@ -58,8 +58,8 @@ struct accel sAccel;
 
 // Conversion values from data to mgrav taken from BMA250 datasheet (rev 1.05, figure 4)
 	const u16 bmp_mgrav_per_bit[7] = { 16, 31, 63, 125, 250, 500, 1000 };
-// Conversion values from data to mgrav taken from CMA3000-D0x datasheet (rev 0.4, table 4)
-	const u16 cma_mgrav_per_bit[7] = { 18, 36, 71, 143, 286, 571, 1142 };
+/* Conversion values from data to mgrav taken from CMA3000-D0x datasheet (rev 0.4, table 4)
+	const u16 cma_mgrav_per_bit[7] = { 18, 36, 71, 143, 286, 571, 1142 };*/
 
 // *************************************************************************************************
 // Extern section
@@ -101,10 +101,10 @@ void sx_acceleration(u8 line)
 	{
         bmp_as_get_data(sAccel.xyz);
 	}
-	else
+	/*else
 	{
         cma_as_get_data(sAccel.xyz);
-	}
+	}*/
 }
 
 // *************************************************************************************************
@@ -143,10 +143,10 @@ u16 convert_acceleration_value_to_mgrav(u8 value)
     	{
             result += ((value & (BIT(i))) >> i) * bmp_mgrav_per_bit[i];
     	}
-    	else
+    	/*else
     	{
             result += ((value & (BIT(i))) >> i) * cma_mgrav_per_bit[i];
-    	}
+    	}*/
     }
 
     return (result);
@@ -176,10 +176,10 @@ void do_acceleration_measurement(void)
 	{
         bmp_as_get_data(sAccel.xyz);
 	}
-	else
+	/*else
 	{
         cma_as_get_data(sAccel.xyz);
-	}
+	}*/
 
     // Set display update flag
     display.flag.update_acceleration = 1;
@@ -220,10 +220,10 @@ void display_acceleration(u8 line, u8 update)
                 	{
                         bmp_as_start();
                 	}
-                	else
+                	/*else
                 	{
                         cma_as_start();
-                	}
+                	}*/
 
                     // Set timeout counter
                     sAccel.timeout = ACCEL_MEASUREMENT_TIMEOUT;
@@ -288,10 +288,10 @@ void display_acceleration(u8 line, u8 update)
         	{
                 bmp_as_stop();
         	}
-        	else
+        	/*else
         	{
                 cma_as_stop();
-        	}
+        	}*/
 
             // Clear mode
             sAccel.mode = ACCEL_MODE_OFF;

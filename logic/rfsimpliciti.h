@@ -43,10 +43,10 @@
 // Prototypes section
 extern void reset_rf(void);
 extern void sx_rf(u8 line);
-extern void sx_ppt(u8 line);
+//extern void sx_ppt(u8 line);
 extern void sx_sync(u8 line);
 extern void display_rf(u8 line, u8 update);
-extern void display_ppt(u8 line, u8 update);
+//extern void display_ppt(u8 line, u8 update);
 extern void display_sync(u8 line, u8 update);
 extern void send_smpl_data(u16 data);
 extern u8 is_rf(void);

@@ -45,11 +45,11 @@
 #include "ports.h"
 #include "buzzer.h"
 #include "bmp_as.h"
-#include "cma_as.h"
+//#include "cma_as.h"
 #include "as.h"
-#include "bmp_ps.h"
-#include "cma_ps.h"
-#include "ps.h"
+//#include "bmp_ps.h"
+//#include "cma_ps.h"
+//#include "ps.h"
 #include "timer.h"
 #include "display.h"
 
@@ -58,8 +58,8 @@
 #include "alarm.h"
 #include "rfsimpliciti.h"
 #include "simpliciti.h"
-#include "altitude.h"
-#include "stopwatch.h"
+//#include "altitude.h"
+//#include "stopwatch.h"
 
 // *************************************************************************************************
 // Prototypes section
@@ -258,11 +258,11 @@ __interrupt void PORT2_ISR(void)
                     buzzer = 1;
 
                     // Faster reaction for stopwatch stop button press
-                    if (is_stopwatch() && !sys.flag.lock_buttons)
+                    /*if (is_stopwatch() && !sys.flag.lock_buttons)
                     {
                         stop_stopwatch();
                         button.flag.down = 0;
-                    }
+                    }*/
                 }
             }
             // ---------------------------------------------------
@@ -316,11 +316,11 @@ __interrupt void PORT2_ISR(void)
 
         // ---------------------------------------------------
         // Pressure sensor IRQ
-        if (IRQ_TRIGGERED(int_flag, PS_INT_PIN))
+        /*if (IRQ_TRIGGERED(int_flag, PS_INT_PIN))
         {
             // Get data from sensor
             request.flag.altitude_measurement = 1;
-        }
+        }*/
 
         // ---------------------------------------------------
         // Safe long button event detection

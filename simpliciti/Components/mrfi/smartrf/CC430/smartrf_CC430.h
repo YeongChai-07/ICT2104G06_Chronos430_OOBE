@@ -114,7 +114,7 @@
 
 #define SMARTRF_SETTING_FSCTRL1    0x08
 #define SMARTRF_SETTING_FSCTRL0    0x00
-#ifdef ISM_EU
+/*#ifdef ISM_EU
 // 869.50MHz
 #    define SMARTRF_SETTING_FREQ2      0x21
 #    define SMARTRF_SETTING_FREQ1      0x71
@@ -142,7 +142,16 @@
 #            error "Wrong ISM band specified (valid are ISM_LF, ISM_EU and ISM_US)"
 #        endif // ISM_LF
 #    endif     // ISM_US
-#endif         // ISM_EU
+#endif         // ISM_EU*/
+
+#        ifdef ISM_LF
+// 433.92MHz
+#            define SMARTRF_SETTING_FREQ2      0x10
+#            define SMARTRF_SETTING_FREQ1      0xB0
+#            define SMARTRF_SETTING_FREQ0      0x71
+#        else
+#            error "Wrong ISM band specified (valid are ISM_LF, ISM_EU and ISM_US)"
+#        endif // ISM_LF
 #define SMARTRF_SETTING_MDMCFG4    0x7B
 #define SMARTRF_SETTING_MDMCFG3    0x83
 #define SMARTRF_SETTING_MDMCFG2    0x13

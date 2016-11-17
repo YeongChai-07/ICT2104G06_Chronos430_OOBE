@@ -48,36 +48,40 @@
  */
 
 /* ----- Radio Family 1 ----- */
-#if (defined MRFI_RADIO_FAMILY1)
+/*#if (defined MRFI_RADIO_FAMILY1)
 #    include "radios/family1/mrfi_radio.c"
 #    include "radios/family1/mrfi_spi.c"
 #    include "radios/common/mrfi_f1f2.c"
-#    include "bsp_external/mrfi_board.c"
+#    include "bsp_external/mrfi_board.c"*/
 
 /* ----- Radio Family 2 ----- */
-#elif (defined MRFI_RADIO_FAMILY2)
+/*#elif (defined MRFI_RADIO_FAMILY2)
 #    include "radios/family2/mrfi_radio.c"
-#    include "radios/common/mrfi_f1f2.c"
+#    include "radios/common/mrfi_f1f2.c"*/
 
 /* ----- Radio Family 3 ----- */
-#elif (defined MRFI_RADIO_FAMILY3)
+/*#elif (defined MRFI_RADIO_FAMILY3)
 #    include "bsp_external/mrfi_board.c"
 #    include "radios/family3/mrfi_spi.c"
-#    include "radios/family3/mrfi_radio.c"
+#    include "radios/family3/mrfi_radio.c"*/
 
 /* ----- Radio Family 4 ----- */
-#elif (defined MRFI_RADIO_FAMILY4)
-#    include "radios/family4/mrfi_radio.c"
+/*#elif (defined MRFI_RADIO_FAMILY4)
+#    include "radios/family4/mrfi_radio.c"*/
 
 /* ----- Radio Family 5 ----- */
-#elif (defined MRFI_RADIO_FAMILY5)
+/*#elif (defined MRFI_RADIO_FAMILY5)
 #    include "radios/family5/mrfi_radio.c"
-#    include "radios/family5/mrfi_radio_interface.c"
+#    include "radios/family5/mrfi_radio_interface.c"*/
 
 /* ----- Radio Family 6 ----- */
-#elif (defined MRFI_RADIO_FAMILY6)
-#    include "radios/family6/mrfi_radio.c"
+/*#elif (defined MRFI_RADIO_FAMILY6)
+#    include "radios/family6/mrfi_radio.c"*/
 
+/* ----- We are currently using Radio Family 5 ----- */
+#if (defined MRFI_RADIO_FAMILY5)
+#    include "radios/family5/mrfi_radio.c"
+#    include "radios/family5/mrfi_radio_interface.c"
 #else
 #    error "ERROR: Radio family is not defined."
 #endif
